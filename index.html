@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mrnuggetthe1st - SourApple</title>
+    <title>mrnuggetthe1st</title>
     <style>
         * {
             margin: 0;
@@ -11,8 +11,8 @@
             box-sizing: border-box;
         }
         body {
-            font-family: 'Orbitron', sans-serif;
-            background: linear-gradient(135deg, #0a1f1a, #1b5e20);
+            font-family: 'Space Mono', monospace;
+            background: radial-gradient(circle at center, #0a1f1a 0%, #081c15 100%);
             color: #ffffff;
             overflow: hidden;
             display: flex;
@@ -31,23 +31,14 @@
             z-index: 1;
             opacity: 0.8;
         }
-        #webgl {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            opacity: 0.3;
-        }
         .cursor {
             position: fixed;
-            width: 30px;
-            height: 30px;
-            border: 2px solid #00ff00;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #39ff14;
             border-radius: 50%;
-            background: rgba(0, 255, 0, 0.2);
-            box-shadow: 0 0 15px #00ff00, 0 0 30px #00ff00;
+            background: rgba(57, 255, 20, 0.2);
+            box-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14;
             pointer-events: none;
             z-index: 999;
             transform: translate(-50%, -50%);
@@ -56,48 +47,79 @@
         .container {
             text-align: center;
             z-index: 2;
-            padding: 30px;
-            background: rgba(0, 0, 0, 0.7);
-            border: 2px solid #00ff00;
-            border-radius: 20px;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5), inset 0 0 10px rgba(0, 255, 0, 0.3);
-            max-width: 700px;
+            padding: 35px;
+            background: rgba(0, 0, 0, 0.65);
+            border: 3px solid #39ff14;
+            border-radius: 30px;
+            box-shadow: 0 0 25px rgba(57, 255, 20, 0.4);
+            max-width: 750px;
             width: 90%;
-            animation: neonGlow 1.5s ease-in-out infinite alternate;
+            animation: cosmicPulse 2s ease-in-out infinite alternate;
         }
         .profile-pic {
-            width: 180px;
-            height: 180px;
+            width: 190px;
+            height: 190px;
             border-radius: 50%;
-            border: 4px solid #00ff00;
+            border: 4px solid #39ff14;
             margin-bottom: 25px;
             object-fit: cover;
-            box-shadow: 0 0 15px #00ff00;
-            transition: transform 0.3s ease;
+            position: relative;
+            box-shadow: 0 0 15px #39ff14;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        .profile-pic::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(57, 255, 20, 0.3) 0%, transparent 70%);
+            z-index: -1;
+            animation: starGlow 3s ease-in-out infinite;
         }
         .profile-pic:hover {
-            transform: scale(1.1);
+            transform: rotate(-3deg) scale(1.03);
+            box-shadow: 0 0 25px #39ff14;
         }
         h1 {
-            font-size: 3em;
-            color: #00ff00;
-            text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
-            margin: 0;
-            display: inline-block;
+            font-size: 3.2em;
+            color: transparent;
+            background: linear-gradient(45deg, #39ff14, #7fff00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 0 0 15px rgba(57, 255, 20, 0.5);
+            margin: 0 auto;
+            display: block;
             white-space: nowrap;
             min-height: 1.2em;
+            max-width: 100%;
+            position: relative;
+            animation: flicker 5s infinite alternate;
+        }
+        h1::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: radial-gradient(circle, rgba(57, 255, 20, 0.2) 0%, transparent 70%);
+            z-index: -1;
+            animation: starGlow 2.8s ease-in-out infinite;
         }
         h2 {
-            font-size: 1.8em;
-            color: #66bb6a;
-            text-shadow: 0 0 8px #66bb6a;
-            margin: 10px 0;
+            font-size: 1.9em;
+            color: #7fff00;
+            text-shadow: 0 0 5px #7fff00;
+            margin: 12px 0;
         }
         p {
-            font-size: 1.3em;
-            color: #ccff90;
-            margin: 5px 0;
-            text-shadow: 0 0 5px #ccff90;
+            font-size: 1.35em;
+            color: #ccffcc;
+            margin: 6px 0;
+            text-shadow: 0 0 3px #ccffcc;
         }
         .social-links {
             margin-top: 25px;
@@ -106,54 +128,92 @@
             flex-wrap: wrap;
         }
         .social-links a {
-            color: #00ff00;
+            color: #39ff14;
             text-decoration: none;
             font-size: 1.2em;
             margin: 0 15px;
-            padding: 10px 20px;
-            border: 1px solid #00ff00;
-            border-radius: 5px;
+            padding: 10px 22px;
+            border: 2px solid #39ff14;
+            border-radius: 10px;
             transition: all 0.3s ease;
-            text-shadow: 0 0 5px #00ff00;
+            text-shadow: 0 0 3px #39ff14;
             cursor: none;
+            position: relative;
+            overflow: hidden;
+        }
+        .social-links a::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(57, 255, 20, 0.3), transparent);
+            transition: left 0.4s ease;
+        }
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 10px;
+            background: radial-gradient(circle, rgba(57, 255, 20, 0.2) 0%, transparent 70%);
+            z-index: -1;
+            animation: starGlow 2.5s ease-in-out infinite;
+        }
+        .social-links a:hover::after {
+            left: 100%;
         }
         .social-links a:hover {
-            background: #00ff00;
+            background: #39ff14;
             color: #000;
-            box-shadow: 0 0 15px #00ff00;
-            transform: translateY(-3px);
+            box-shadow: 0 0 15px #39ff14;
+            transform: translateY(-2px);
         }
-        @keyframes neonGlow {
-            from { box-shadow: 0 0 20px rgba(0, 255, 0, 0.5), inset 0 0 10px rgba(0, 255, 0, 0.3); }
-            to { box-shadow: 0 0 30px rgba(0, 255, 0, 0.7), inset 0 0 15px rgba(0, 255, 0, 0.5); }
+        @keyframes cosmicPulse {
+            from { box-shadow: 0 0 25px rgba(57, 255, 20, 0.4); }
+            to { box-shadow: 0 0 35px rgba(57, 255, 20, 0.6); }
+        }
+        @keyframes starGlow {
+            0% { opacity: 0.2; transform: scale(0.9); }
+            50% { opacity: 0.5; transform: scale(1.05); }
+            100% { opacity: 0.2; transform: scale(0.9); }
+        }
+        @keyframes flicker {
+            0%, 100% { opacity: 1; text-shadow: 0 0 15px rgba(57, 255, 20, 0.5); }
+            50% { opacity: 0.8; text-shadow: 0 0 10px rgba(57, 255, 20, 0.3); }
         }
         @media (max-width: 600px) {
             .container {
-                margin: 20px;
                 padding: 20px;
                 width: 95%;
             }
             h1 {
-                font-size: 2.2em;
+                font-size: 2.3em;
             }
             h2 {
-                font-size: 1.4em;
+                font-size: 1.5em;
             }
             .profile-pic {
-                width: 140px;
-                height: 140px;
+                width: 150px;
+                height: 150px;
             }
             .social-links a {
                 font-size: 1em;
-                padding: 8px 15px;
-                margin: 5px;
+                padding: 8px 18px;
+                margin: 6px;
+            }
+            .cursor {
+                width: 18px;
+                height: 18px;
             }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="webgl"></div>
     <div id="particles-js"></div>
     <div class="cursor" id="cursor"></div>
     <div class="container">
@@ -168,23 +228,18 @@
             <a href="https://tiktok.com/@mrnuggetthe1st" target="_blank">TikTok</a>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // Cursor highlight
         const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
-
-        // Typing and deleting animation
         const name = 'mrnuggetthe1st';
         const typedName = document.getElementById('typed-name');
         let currentText = '';
         let index = 0;
         let isDeleting = false;
-
         function type() {
             if (!isDeleting && index <= name.length) {
                 currentText = name.slice(0, index);
@@ -205,105 +260,22 @@
             setTimeout(type, isDeleting ? 100 : 150);
         }
         type();
-
-        // Particles (changed to circles)
         particlesJS('particles-js', {
             particles: {
-                number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: '#00ff00' },
-                shape: {
-                    type: 'circle',
-                    stroke: { width: 1, color: '#00ff00' }
-                },
-                opacity: {
-                    value: 0.5,
-                    random: true,
-                    anim: { enable: true, speed: 1, opacity_min: 0.2, sync: false }
-                },
-                size: {
-                    value: 3,
-                    random: true,
-                    anim: { enable: true, speed: 2, size_min: 0.2, sync: false }
-                },
-                line_linked: {
-                    enable: false
-                },
-                move: {
-                    enable: true,
-                    speed: 2,
-                    direction: 'none',
-                    random: true,
-                    straight: false,
-                    out_mode: 'out',
-                    bounce: false,
-                    attract: { enable: false, rotateX: 600, rotateY: 1200 }
-                }
+                number: { value: 70, density: { enable: true, value_area: 1500 } },
+                color: { value: '#39ff14' },
+                shape: { type: 'circle', stroke: { width: 0, color: '#000000' } },
+                opacity: { value: 0.8, random: true, anim: { enable: true, speed: 0.8, opacity_min: 0.3, sync: false } },
+                size: { value: 3, random: true, anim: { enable: true, speed: 1.2, size_min: 0.5, sync: false } },
+                line_linked: { enable: true, distance: 180, color: '#39ff14', opacity: 0.6, width: 1.2 },
+                move: { enable: true, speed: 1.8, direction: 'none', random: true, straight: false, out_mode: 'out', bounce: false, attract: { enable: false, rotateX: 800, rotateY: 1600 } }
             },
             interactivity: {
                 detect_on: 'canvas',
-                events: {
-                    onhover: { enable: true, mode: 'grab' },
-                    onclick: { enable: true, mode: 'push' },
-                    resize: true
-                },
-                modes: {
-                    grab: { distance: 200, line_linked: { opacity: 0.5 } },
-                    bubble: { distance: 300, size: 20, duration: 2, opacity: 8, speed: 3 },
-                    repulse: { distance: 100, duration: 0.4 },
-                    push: { particles_nb: 4 },
-                    remove: { particles_nb: 2 }
-                }
+                events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: true, mode: 'push' }, resize: true },
+                modes: { grab: { distance: 220, line_linked: { opacity: 0.8 } }, bubble: { distance: 300, size: 20, duration: 2, opacity: 5, speed: 2 }, repulse: { distance: 120, duration: 0.4 }, push: { particles_nb: 3 }, remove: { particles_nb: 2 } }
             },
             retina_detect: true
-        });
-
-        // Simplified WebGL Shader Background
-        const scene = new THREE.Scene();
-        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('webgl').appendChild(renderer.domElement);
-
-        const geometry = new THREE.PlaneGeometry(2, 2);
-        const material = new THREE.ShaderMaterial({
-            uniforms: {
-                u_time: { value: 0.0 },
-                u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
-            },
-            vertexShader: `
-                void main() {
-                    gl_Position = vec4(position, 1.0);
-                }
-            `,
-            fragmentShader: `
-                uniform float u_time;
-                uniform vec2 u_resolution;
-                void main() {
-                    vec2 uv = gl_FragCoord.xy / u_resolution.xy;
-                    float t = u_time * 0.2;
-                    float glow = 0.05 / (length(uv - 0.5) + 0.2);
-                    vec3 color = vec3(0.0, 0.8, 0.0) * glow * (sin(t) * 0.3 + 0.7);
-                    gl_FragColor = vec4(color, 0.3);
-                }
-            `
-        });
-        const plane = new THREE.Mesh(geometry, material);
-        scene.add(plane);
-
-        let lastTime = 0;
-        function animate(time) {
-            requestAnimationFrame(animate);
-            if (time - lastTime > 50) { // Render every 50ms to reduce lag
-                material.uniforms.u_time.value += 0.01;
-                renderer.render(scene, camera);
-                lastTime = time;
-            }
-        }
-        animate(0);
-
-        window.addEventListener('resize', () => {
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            material.uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
         });
     </script>
 </body>
